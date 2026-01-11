@@ -1007,9 +1007,21 @@ export default function Page() {
               </div>
             </div>
             
-            <div className="border-t border-gray-800/50 mt-8 pt-8 text-center">
+            <div className="border-t border-gray-800/50 mt-8 pt-8 text-center space-y-2">
               <p className="text-gray-400 text-sm">
                 © 2024 CashLabs. Building the future of Bitcoin Cash development.
+              </p>
+              <p className="text-gray-500 text-xs">
+                Made by{' '}
+                <a 
+                  href="https://github.com/nickthelegend" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-[#61e9ba] hover:text-[#61e9ba]/80 transition-colors underline"
+                >
+                  nickthelegend
+                </a>
+                {' '}for the BCH-1 Hackcelerator
               </p>
             </div>
           </div>
