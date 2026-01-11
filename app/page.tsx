@@ -94,6 +94,26 @@ const X = ({ className = "", size = 24 }: { className?: string; size?: number })
   </svg>
 )
 
+const ZoomIn = ({ className = "", size = 24 }: { className?: string; size?: number }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <circle cx="11" cy="11" r="8" />
+    <path d="m21 21-4.35-4.35" />
+    <line x1="11" y1="8" x2="11" y2="14" />
+    <line x1="8" y1="11" x2="14" y2="11" />
+  </svg>
+)
+
 const Code = ({ className = "", size = 24 }: { className?: string; size?: number }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -216,7 +236,12 @@ const Navigation = React.memo(() => {
             <Button type="button" variant="ghost" size="sm">
               Docs
             </Button>
-            <Button type="button" variant="default" size="sm">
+            <Button 
+              type="button" 
+              variant="default" 
+              size="sm"
+              onClick={() => window.open('https://play.cashlabs.dev', '_blank')}
+            >
               Launch App
             </Button>
           </div>
@@ -260,7 +285,13 @@ const Navigation = React.memo(() => {
               <Button type="button" variant="ghost" size="sm" className="w-full justify-start">
                 Docs
               </Button>
-              <Button type="button" variant="default" size="sm" className="w-full justify-start">
+              <Button 
+                type="button" 
+                variant="default" 
+                size="sm" 
+                className="w-full justify-start"
+                onClick={() => window.open('https://play.cashlabs.dev', '_blank')}
+              >
                 Launch App
               </Button>
             </div>
@@ -272,6 +303,109 @@ const Navigation = React.memo(() => {
 })
 
 Navigation.displayName = "Navigation"
+
+// Image Preview Modal Component
+const ImagePreviewModal = React.memo(({ 
+  isOpen, 
+  onClose, 
+  imageSrc, 
+  imageAlt, 
+  title 
+}: { 
+  isOpen: boolean
+  onClose: () => void
+  imageSrc: string
+  imageAlt: string
+  title: string
+}) => {
+  React.useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose()
+      }
+    }
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape)
+      document.body.style.overflow = 'hidden'
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape)
+      document.body.style.overflow = 'unset'
+    }
+  }, [isOpen, onClose])
+
+  if (!isOpen) return null
+
+  return (
+    <div 
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm"
+      onClick={onClose}
+      style={{
+        animation: "fadeIn 0.3s ease-out",
+      }}
+    >
+      <div 
+        className="relative max-w-7xl max-h-[90vh] w-full"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Close Button */}
+        <button
+          onClick={onClose}
+          className="absolute -top-12 right-0 z-10 p-2 text-white hover:text-gray-300 transition-colors"
+          aria-label="Close preview"
+        >
+          <X size={32} />
+        </button>
+        
+        {/* Title */}
+        <div className="absolute -top-12 left-0 z-10">
+          <h3 className="text-white text-lg font-semibold">{title}</h3>
+        </div>
+
+        {/* Image Container */}
+        <div 
+          className="relative rounded-xl overflow-hidden border border-gray-700/50 shadow-2xl bg-gray-900"
+          style={{
+            animation: "slideUp 0.3s ease-out",
+          }}
+        >
+          <Image
+            src={imageSrc}
+            alt={imageAlt}
+            width={1200}
+            height={800}
+            className="w-full h-auto max-h-[80vh] object-contain"
+            priority
+          />
+        </div>
+
+        {/* Instructions */}
+        <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2">
+          <p className="text-gray-400 text-sm text-center">
+            Press ESC or click outside to close
+          </p>
+        </div>
+      </div>
+
+      <style>{`
+        @keyframes slideUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+        }
+      `}</style>
+    </div>
+  )
+})
+
+ImagePreviewModal.displayName = "ImagePreviewModal"
 
 // Hero Component
 const Hero = React.memo(() => {
@@ -343,6 +477,7 @@ const Hero = React.memo(() => {
           size="lg"
           className="rounded-lg flex items-center justify-center gap-2 bg-[#61e9ba] text-black hover:bg-[#61e9ba]/90 border-none px-10"
           aria-label="Open the playground"
+          onClick={() => window.open('https://play.cashlabs.dev', '_blank')}
         >
           <Code size={20} />
           Open Playground
@@ -359,88 +494,200 @@ const Hero = React.memo(() => {
         </Button>
       </div>
 
-      <div className="w-full max-w-6xl relative pb-20">
-        <div className="relative z-10 rounded-lg overflow-hidden border border-gray-700/50 shadow-2xl bg-gray-900">
-          {/* Header */}
-          <div className="bg-gray-800/50 px-6 py-3 border-b border-gray-700/50 flex items-center gap-2">
-            <div className="flex gap-2">
-              <div className="w-3 h-3 rounded-full bg-red-500" />
-              <div className="w-3 h-3 rounded-full bg-yellow-500" />
-              <div className="w-3 h-3 rounded-full bg-green-500" />
-            </div>
-            <span className="text-xs text-gray-400 ml-4">contract.cash</span>
-          </div>
-
-          {/* Content Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-0 min-h-96">
-            {/* Code Editor */}
-            <div className="bg-black/40 p-6 border-r border-gray-700/50 font-mono text-sm overflow-auto">
-              <div className="text-gray-400 leading-relaxed">
-                <div>
-                  <span className="text-purple-400">pragma</span> <span className="text-blue-400">cashscript</span>{" "}
-                  <span className="text-orange-400">^</span>0.9.0;
-                </div>
-                <div className="mt-2">
-                  <span className="text-gray-500">// Simple escrow contract</span>
-                </div>
-                <div className="mt-2">
-                  <span className="text-purple-400">contract</span> <span className="text-[#61e9ba]">Escrow</span>
-                  {"{"}
-                </div>
-                <div className="ml-4">
-                  <span className="text-blue-400">pubkey</span> sender,
-                </div>
-                <div className="ml-4">
-                  <span className="text-blue-400">pubkey</span> recipient
-                </div>
-                <div>{"}"}</div>
-                <div className="mt-2">
-                  <span className="text-purple-400">function</span> <span className="text-green-300">release</span>(){" "}
-                  {"{"}
-                </div>
-                <div className="ml-4">require(checkSig(recipient));</div>
-                <div>{"}"}</div>
-              </div>
-            </div>
-
-            {/* Output Panel */}
-            <div className="bg-black/60 p-6 flex flex-col gap-4">
-              <div>
-                <h4 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">ABI</h4>
-                <div className="bg-gray-800/30 rounded p-3 text-xs text-gray-300 font-mono overflow-auto max-h-24">
-                  <div>{"{"}</div>
-                  <div className="ml-2">
-                    <span className="text-blue-300">"functions"</span>: [{"{"}
-                  </div>
-                  <div className="ml-4">
-                    <span className="text-blue-300">"name"</span>: <span className="text-green-300">"release"</span>
-                  </div>
-                  <div className="ml-2">{"}"}]</div>
-                  <div>{"}"}</div>
-                </div>
-              </div>
-              <div>
-                <h4 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Bytecode</h4>
-                <div className="bg-gray-800/30 rounded p-3 text-xs text-[#61e9ba] font-mono truncate">
-                  521483ca7a76a9148a...
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Terminal Footer */}
-          <div className="bg-black/80 border-t border-gray-700/50 p-4 font-mono text-xs text-green-400">
-            <div>$ npm run compile</div>
-            <div className="text-gray-500 mt-1">✓ Compiled successfully</div>
-            <div className="text-gray-500">TX Hash: 0x7f3a2b8c9e1d4f6a...</div>
-          </div>
-        </div>
+      {/* Hero Image - Big and Responsive */}
+      <div className="w-full max-w-7xl mx-auto mb-20 px-4 sm:px-6">
+        <Image 
+          src="/images/hero.png" 
+          alt="CashLabs - Build smart contracts on Bitcoin Cash" 
+          width={1200} 
+          height={600} 
+          className="w-full h-auto rounded-xl shadow-2xl border border-gray-700/50 hover:border-[#61e9ba]/30 transition-colors duration-300"
+          priority
+        />
       </div>
     </section>
   )
 })
 
 Hero.displayName = "Hero"
+
+// Products Section
+const Products = React.memo(() => {
+  const [previewModal, setPreviewModal] = React.useState<{
+    isOpen: boolean
+    imageSrc: string
+    imageAlt: string
+    title: string
+  }>({
+    isOpen: false,
+    imageSrc: '',
+    imageAlt: '',
+    title: ''
+  })
+
+  const openPreview = (imageSrc: string, imageAlt: string, title: string) => {
+    setPreviewModal({
+      isOpen: true,
+      imageSrc,
+      imageAlt,
+      title
+    })
+  }
+
+  const closePreview = () => {
+    setPreviewModal({
+      isOpen: false,
+      imageSrc: '',
+      imageAlt: '',
+      title: ''
+    })
+  }
+
+  return (
+    <>
+      <section className="py-20 px-6 max-w-7xl mx-auto">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Our Products</h2>
+          <p className="text-gray-400 max-w-2xl mx-auto">
+            Powerful tools for Bitcoin Cash development and transactions
+          </p>
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* CashLabs Play */}
+          <div className="space-y-6">
+            <div className="bg-gradient-to-r from-gray-800/30 to-gray-900/30 border border-gray-700/50 rounded-xl p-8 hover:border-[#61e9ba]/30 transition-colors duration-300">
+              <div className="flex items-center gap-3 mb-4">
+                <Code size={28} className="text-[#61e9ba]" />
+                <h3 className="text-2xl font-bold text-white">CashLabs Play</h3>
+              </div>
+              <p className="text-gray-300 mb-6 leading-relaxed">
+                Build, compile, and deploy Bitcoin Cash smart contracts directly in your browser. 
+                No setup required - just start coding with CashScript.
+              </p>
+              <div className="flex flex-wrap gap-3 mb-6">
+                <span className="px-3 py-1 bg-[#61e9ba]/10 text-[#61e9ba] text-sm rounded-full border border-[#61e9ba]/20">
+                  Smart Contracts
+                </span>
+                <span className="px-3 py-1 bg-[#61e9ba]/10 text-[#61e9ba] text-sm rounded-full border border-[#61e9ba]/20">
+                  CashScript
+                </span>
+                <span className="px-3 py-1 bg-[#61e9ba]/10 text-[#61e9ba] text-sm rounded-full border border-[#61e9ba]/20">
+                  Browser IDE
+                </span>
+              </div>
+              <Button
+                type="button"
+                variant="default"
+                size="lg"
+                className="w-full sm:w-auto bg-[#61e9ba] text-black hover:bg-[#61e9ba]/90"
+                onClick={() => window.open('https://play.cashlabs.dev', '_blank')}
+              >
+                <Code size={20} />
+                Open Playground
+              </Button>
+            </div>
+          </div>
+
+          {/* CashLabs Flow */}
+          <div className="space-y-6">
+            <div className="bg-gradient-to-r from-gray-800/30 to-gray-900/30 border border-gray-700/50 rounded-xl p-8 hover:border-[#61e9ba]/30 transition-colors duration-300">
+              <div className="flex items-center gap-3 mb-4">
+                <Zap size={28} className="text-[#61e9ba]" />
+                <h3 className="text-2xl font-bold text-white">CashLabs Flow</h3>
+              </div>
+              <p className="text-gray-300 mb-6 leading-relaxed">
+                Execute Bitcoin Cash transactions using Node.js. Streamlined transaction 
+                processing and wallet integration for developers.
+              </p>
+              <div className="flex flex-wrap gap-3 mb-6">
+                <span className="px-3 py-1 bg-[#61e9ba]/10 text-[#61e9ba] text-sm rounded-full border border-[#61e9ba]/20">
+                  Node.js
+                </span>
+                <span className="px-3 py-1 bg-[#61e9ba]/10 text-[#61e9ba] text-sm rounded-full border border-[#61e9ba]/20">
+                  Transactions
+                </span>
+                <span className="px-3 py-1 bg-[#61e9ba]/10 text-[#61e9ba] text-sm rounded-full border border-[#61e9ba]/20">
+                  Bitcoin Cash
+                </span>
+              </div>
+              <Button
+                type="button"
+                variant="default"
+                size="lg"
+                className="w-full sm:w-auto bg-[#61e9ba] text-black hover:bg-[#61e9ba]/90"
+                onClick={() => window.open('https://flow.cashlabs.dev', '_blank')}
+              >
+                <Terminal size={20} />
+                Try Flow
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        {/* Product Images */}
+        <div className="grid lg:grid-cols-2 gap-12 mt-12">
+          {/* Hero Image for Play */}
+          <div className="space-y-4">
+            <h4 className="text-lg font-semibold text-white text-center">CashLabs Play</h4>
+            <div 
+              className="relative rounded-xl overflow-hidden border border-gray-700/50 hover:border-[#61e9ba]/30 transition-all duration-300 cursor-pointer group"
+              onClick={() => openPreview('/images/hero.png', 'CashLabs Play - Smart Contract IDE', 'CashLabs Play')}
+            >
+              <Image 
+                src="/images/hero.png" 
+                alt="CashLabs Play - Smart Contract IDE" 
+                width={600} 
+                height={400} 
+                className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
+              />
+              {/* Hover Overlay */}
+              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <div className="bg-white/20 backdrop-blur-sm rounded-full p-3">
+                  <ZoomIn size={24} className="text-white" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Flow Image */}
+          <div className="space-y-4">
+            <h4 className="text-lg font-semibold text-white text-center">CashLabs Flow</h4>
+            <div 
+              className="relative rounded-xl overflow-hidden border border-gray-700/50 hover:border-[#61e9ba]/30 transition-all duration-300 cursor-pointer group"
+              onClick={() => openPreview('/images/flow.png', 'CashLabs Flow - Transaction Processing', 'CashLabs Flow')}
+            >
+              <Image 
+                src="/images/flow.png" 
+                alt="CashLabs Flow - Transaction Processing" 
+                width={600} 
+                height={400} 
+                className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
+              />
+              {/* Hover Overlay */}
+              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <div className="bg-white/20 backdrop-blur-sm rounded-full p-3">
+                  <ZoomIn size={24} className="text-white" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Image Preview Modal */}
+      <ImagePreviewModal
+        isOpen={previewModal.isOpen}
+        onClose={closePreview}
+        imageSrc={previewModal.imageSrc}
+        imageAlt={previewModal.imageAlt}
+        title={previewModal.title}
+      />
+    </>
+  )
+})
+
+Products.displayName = "Products"
 
 // How It Works Section
 const HowItWorks = React.memo(() => {
@@ -603,6 +850,7 @@ export default function Page() {
     <main className="min-h-screen bg-black text-white">
       <Navigation />
       <Hero />
+      <Products />
       <HowItWorks />
       <FeaturesGrid />
       <WhoIsThisFor />
