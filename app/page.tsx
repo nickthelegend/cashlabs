@@ -1,6 +1,7 @@
 "use client"
 
 import React from "react"
+import Image from "next/image"
 
 // Inline Button Component
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -194,9 +195,9 @@ const Navigation = React.memo(() => {
     <header className="fixed top-0 w-full z-50 border-b border-gray-800/50 bg-black/80 backdrop-blur-md">
       <nav className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <div className="text-xl font-semibold text-white flex items-center gap-2">
-            <Code size={24} className="text-yellow-400" />
-            CashScript
+          <div className="text-xl font-semibold text-white flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity">
+            <Image src="/logo.png" alt="CashLabs Logo" width={32} height={32} />
+            CashLabs
           </div>
 
           <div className="hidden md:flex items-center justify-center gap-8 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
@@ -311,8 +312,8 @@ const Hero = React.memo(() => {
         }
       `}</style>
 
-      <aside className="mb-8 inline-flex flex-wrap items-center justify-center gap-2 px-4 py-2 rounded-full border border-yellow-500/30 bg-yellow-500/10 backdrop-blur-sm max-w-full">
-        <span className="text-xs text-center whitespace-nowrap text-yellow-300">
+      <aside className="mb-8 inline-flex flex-wrap items-center justify-center gap-2 px-4 py-2 rounded-full border border-[#61e9ba]/30 bg-[#61e9ba]/10 backdrop-blur-sm max-w-full">
+        <span className="text-xs text-center whitespace-nowrap text-[#61e9ba]">
           Testnet supported • Wallet connect
         </span>
       </aside>
@@ -320,15 +321,13 @@ const Hero = React.memo(() => {
       <h1
         className="text-4xl md:text-5xl lg:text-6xl font-bold text-center max-w-4xl px-6 leading-tight mb-6"
         style={{
-          background: "linear-gradient(to bottom, #fbbf24, #fcd34d, rgba(252, 211, 77, 0.6))",
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent",
-          backgroundClip: "text",
           letterSpacing: "-0.05em",
         }}
       >
-        Build smart contracts <br />
-        on Bitcoin Cash
+        <span className="bg-gradient-to-b from-[#61e9ba] via-[#8cf5d1] to-[#61e9ba]/60 bg-clip-text text-transparent inline-block">
+          Build smart contracts <br />
+          on Bitcoin Cash
+        </span>
         <br />
         <span className="text-white/90 text-3xl md:text-4xl lg:text-5xl">In your browser</span>
       </h1>
@@ -340,9 +339,9 @@ const Hero = React.memo(() => {
       <div className="flex items-center gap-4 relative z-10 mb-16 flex-wrap justify-center">
         <Button
           type="button"
-          variant="gradient"
+          variant="default"
           size="lg"
-          className="rounded-lg flex items-center justify-center gap-2"
+          className="rounded-lg flex items-center justify-center gap-2 bg-[#61e9ba] text-black hover:bg-[#61e9ba]/90 border-none px-10"
           aria-label="Open the playground"
         >
           <Code size={20} />
@@ -385,7 +384,7 @@ const Hero = React.memo(() => {
                   <span className="text-gray-500">// Simple escrow contract</span>
                 </div>
                 <div className="mt-2">
-                  <span className="text-purple-400">contract</span> <span className="text-yellow-300">Escrow</span>
+                  <span className="text-purple-400">contract</span> <span className="text-[#61e9ba]">Escrow</span>
                   {"{"}
                 </div>
                 <div className="ml-4">
@@ -422,7 +421,7 @@ const Hero = React.memo(() => {
               </div>
               <div>
                 <h4 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Bytecode</h4>
-                <div className="bg-gray-800/30 rounded p-3 text-xs text-yellow-300 font-mono truncate">
+                <div className="bg-gray-800/30 rounded p-3 text-xs text-[#61e9ba] font-mono truncate">
                   521483ca7a76a9148a...
                 </div>
               </div>
@@ -476,13 +475,13 @@ const HowItWorks = React.memo(() => {
           return (
             <div
               key={index}
-              className="bg-gray-800/30 border border-gray-700/50 rounded-lg p-8 hover:border-yellow-500/50 transition-colors"
+              className="bg-gray-800/30 border border-gray-700/50 rounded-lg p-8 hover:border-[#61e9ba]/50 transition-colors"
               style={{
                 animation: `fadeIn 0.6s ease-out ${index * 0.1}s both`,
               }}
             >
               <div className="mb-4">
-                <Icon size={32} className="text-yellow-400" />
+                <Icon size={32} className="text-[#61e9ba]" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">{step.title}</h3>
               <p className="text-gray-400 text-sm">{step.description}</p>
@@ -520,12 +519,12 @@ const FeaturesGrid = React.memo(() => {
         {features.map((feature, index) => (
           <div
             key={index}
-            className="bg-gray-800/20 border border-gray-700/50 rounded-lg p-6 flex items-center gap-4 hover:border-yellow-500/30 transition-colors"
+            className="bg-gray-800/20 border border-gray-700/50 rounded-lg p-6 flex items-center gap-4 hover:border-[#61e9ba]/30 transition-colors"
             style={{
               animation: `fadeIn 0.6s ease-out ${index * 0.05}s both`,
             }}
           >
-            <Zap size={20} className="text-yellow-400 flex-shrink-0" />
+            <Zap size={20} className="text-[#61e9ba] flex-shrink-0" />
             <span className="text-white font-medium">{feature}</span>
           </div>
         ))}
@@ -554,8 +553,8 @@ const WhoIsThisFor = React.memo(() => {
       <div className="grid md:grid-cols-2 gap-6">
         {audience.map((item, index) => (
           <div key={index} className="flex items-start gap-4 p-6 rounded-lg bg-gray-800/10 border border-gray-700/30">
-            <div className="w-6 h-6 rounded-full bg-yellow-400/20 flex items-center justify-center flex-shrink-0 mt-1">
-              <div className="w-2 h-2 rounded-full bg-yellow-400" />
+            <div className="w-6 h-6 rounded-full bg-[#61e9ba]/20 flex items-center justify-center flex-shrink-0 mt-1">
+              <div className="w-2 h-2 rounded-full bg-[#61e9ba]" />
             </div>
             <span className="text-gray-300 text-lg">{item}</span>
           </div>
