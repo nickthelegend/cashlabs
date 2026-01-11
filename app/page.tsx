@@ -415,6 +415,8 @@ const Hero = React.memo(() => {
       style={{
         animation: "fadeIn 0.6s ease-out",
       }}
+      role="banner"
+      aria-labelledby="hero-title"
     >
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
@@ -453,6 +455,7 @@ const Hero = React.memo(() => {
       </aside>
 
       <h1
+        id="hero-title"
         className="text-4xl md:text-5xl lg:text-6xl font-bold text-center max-w-4xl px-6 leading-tight mb-6"
         style={{
           letterSpacing: "-0.05em",
@@ -466,20 +469,20 @@ const Hero = React.memo(() => {
         <span className="text-white/90 text-3xl md:text-4xl lg:text-5xl">In your browser</span>
       </h1>
 
-      <p className="text-sm md:text-base text-center max-w-3xl px-6 mb-10 text-gray-300">
+      <p className="text-sm md:text-base text-center max-w-3xl px-6 mb-10 text-gray-300" role="doc-subtitle">
         Write CashScript, compile, deploy and interact with BCH smart contracts — no setup, no CLI, just code.
       </p>
 
-      <div className="flex items-center gap-4 relative z-10 mb-16 flex-wrap justify-center">
+      <div className="flex items-center gap-4 relative z-10 mb-16 flex-wrap justify-center" role="group" aria-label="Main actions">
         <Button
           type="button"
           variant="default"
           size="lg"
           className="rounded-lg flex items-center justify-center gap-2 bg-[#61e9ba] text-black hover:bg-[#61e9ba]/90 border-none px-10"
-          aria-label="Open the playground"
+          aria-label="Open the CashLabs playground to start building smart contracts"
           onClick={() => window.open('https://play.cashlabs.dev', '_blank')}
         >
-          <Code size={20} />
+          <Code size={20} aria-hidden="true" />
           Open Playground
         </Button>
         <Button
@@ -487,10 +490,10 @@ const Hero = React.memo(() => {
           variant="secondary"
           size="lg"
           className="rounded-lg flex items-center justify-center gap-2"
-          aria-label="View documentation"
+          aria-label="View CashLabs documentation and guides"
         >
           View Docs
-          <ArrowRight size={20} />
+          <ArrowRight size={20} aria-hidden="true" />
         </Button>
       </div>
 
@@ -498,11 +501,12 @@ const Hero = React.memo(() => {
       <div className="w-full max-w-7xl mx-auto mb-20 px-4 sm:px-6">
         <Image 
           src="/images/hero.png" 
-          alt="CashLabs - Build smart contracts on Bitcoin Cash" 
+          alt="CashLabs Play interface showing CashScript smart contract development environment with code editor, compiler output, and deployment tools" 
           width={1200} 
           height={600} 
           className="w-full h-auto rounded-xl shadow-2xl border border-gray-700/50 hover:border-[#61e9ba]/30 transition-colors duration-300"
           priority
+          loading="eager"
         />
       </div>
     </section>
@@ -552,6 +556,49 @@ const Products = React.memo(() => {
             Powerful tools for Bitcoin Cash development and transactions
           </p>
         </div>
+
+        {/* Structured Data for Products */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "ItemList",
+              "name": "CashLabs Products",
+              "description": "Bitcoin Cash development tools and platforms",
+              "itemListElement": [
+                {
+                  "@type": "SoftwareApplication",
+                  "position": 1,
+                  "name": "CashLabs Play",
+                  "description": "Browser-based IDE for building Bitcoin Cash smart contracts with CashScript",
+                  "url": "https://play.cashlabs.dev",
+                  "applicationCategory": "DeveloperApplication",
+                  "operatingSystem": "Web Browser",
+                  "offers": {
+                    "@type": "Offer",
+                    "price": "0",
+                    "priceCurrency": "USD"
+                  }
+                },
+                {
+                  "@type": "SoftwareApplication", 
+                  "position": 2,
+                  "name": "CashLabs Flow",
+                  "description": "Node.js tools for Bitcoin Cash transaction processing and wallet integration",
+                  "url": "https://flow.cashlabs.dev",
+                  "applicationCategory": "DeveloperApplication",
+                  "operatingSystem": "Node.js",
+                  "offers": {
+                    "@type": "Offer",
+                    "price": "0",
+                    "priceCurrency": "USD"
+                  }
+                }
+              ]
+            })
+          }}
+        />
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* CashLabs Play */}
@@ -710,29 +757,30 @@ const HowItWorks = React.memo(() => {
   ]
 
   return (
-    <section id="how-it-works" className="py-20 px-6 max-w-6xl mx-auto">
-      <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">How It Works</h2>
+    <section id="how-it-works" className="py-20 px-6 max-w-6xl mx-auto" aria-labelledby="how-it-works-title">
+      <header className="text-center mb-12">
+        <h2 id="how-it-works-title" className="text-3xl md:text-4xl font-bold text-white mb-4">How It Works</h2>
         <p className="text-gray-400 max-w-2xl mx-auto">Get from idea to deployed contract in minutes, not hours</p>
-      </div>
+      </header>
 
-      <div className="grid md:grid-cols-3 gap-8">
+      <div className="grid md:grid-cols-3 gap-8" role="list">
         {steps.map((step, index) => {
           const Icon = step.icon
           return (
-            <div
+            <article
               key={index}
               className="bg-gray-800/30 border border-gray-700/50 rounded-lg p-8 hover:border-[#61e9ba]/50 transition-colors"
               style={{
                 animation: `fadeIn 0.6s ease-out ${index * 0.1}s both`,
               }}
+              role="listitem"
             >
-              <div className="mb-4">
+              <div className="mb-4" aria-hidden="true">
                 <Icon size={32} className="text-[#61e9ba]" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">{step.title}</h3>
               <p className="text-gray-400 text-sm">{step.description}</p>
-            </div>
+            </article>
           )
         })}
       </div>
@@ -847,14 +895,126 @@ Community.displayName = "Community"
 // Main Component
 export default function Page() {
   return (
-    <main className="min-h-screen bg-black text-white">
-      <Navigation />
-      <Hero />
-      <Products />
-      <HowItWorks />
-      <FeaturesGrid />
-      <WhoIsThisFor />
-      <Community />
-    </main>
+    <>
+      {/* Additional SEO Head Elements */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "CashLabs - Build Bitcoin Cash Smart Contracts",
+            "description": "Build, compile, and deploy Bitcoin Cash smart contracts in your browser with CashLabs. Free CashScript IDE and Node.js tools.",
+            "url": "https://cashlabs.dev",
+            "mainEntity": {
+              "@type": "SoftwareApplication",
+              "name": "CashLabs",
+              "applicationCategory": "DeveloperApplication",
+              "operatingSystem": "Web Browser",
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+              }
+            },
+            "breadcrumb": {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://cashlabs.dev"
+                }
+              ]
+            }
+          })
+        }}
+      />
+      
+      <main className="min-h-screen bg-black text-white" role="main">
+        <Navigation />
+        <Hero />
+        <Products />
+        <HowItWorks />
+        <FeaturesGrid />
+        <WhoIsThisFor />
+        <Community />
+        
+        {/* Footer with additional SEO content */}
+        <footer className="bg-gray-900/50 border-t border-gray-800/50 py-12 px-6" role="contentinfo">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid md:grid-cols-4 gap-8">
+              {/* Company Info */}
+              <div className="space-y-4">
+                <div className="flex items-center gap-2">
+                  <Image src="/logo.png" alt="CashLabs Logo" width={32} height={32} />
+                  <span className="text-lg font-semibold text-white">CashLabs</span>
+                </div>
+                <p className="text-gray-400 text-sm">
+                  Build Bitcoin Cash smart contracts in your browser. Free tools for developers.
+                </p>
+              </div>
+              
+              {/* Products */}
+              <div className="space-y-4">
+                <h3 className="text-white font-semibold">Products</h3>
+                <ul className="space-y-2 text-sm">
+                  <li>
+                    <a href="https://play.cashlabs.dev" className="text-gray-400 hover:text-[#61e9ba] transition-colors" target="_blank" rel="noopener noreferrer">
+                      CashLabs Play
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://flow.cashlabs.dev" className="text-gray-400 hover:text-[#61e9ba] transition-colors" target="_blank" rel="noopener noreferrer">
+                      CashLabs Flow
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              
+              {/* Resources */}
+              <div className="space-y-4">
+                <h3 className="text-white font-semibold">Resources</h3>
+                <ul className="space-y-2 text-sm">
+                  <li>
+                    <a href="#how-it-works" className="text-gray-400 hover:text-[#61e9ba] transition-colors">
+                      How It Works
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#features" className="text-gray-400 hover:text-[#61e9ba] transition-colors">
+                      Features
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#community" className="text-gray-400 hover:text-[#61e9ba] transition-colors">
+                      Community
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              
+              {/* Technology */}
+              <div className="space-y-4">
+                <h3 className="text-white font-semibold">Technology</h3>
+                <ul className="space-y-2 text-sm">
+                  <li className="text-gray-400">Bitcoin Cash (BCH)</li>
+                  <li className="text-gray-400">CashScript</li>
+                  <li className="text-gray-400">Smart Contracts</li>
+                  <li className="text-gray-400">Node.js</li>
+                </ul>
+              </div>
+            </div>
+            
+            <div className="border-t border-gray-800/50 mt-8 pt-8 text-center">
+              <p className="text-gray-400 text-sm">
+                © 2024 CashLabs. Building the future of Bitcoin Cash development.
+              </p>
+            </div>
+          </div>
+        </footer>
+      </main>
+    </>
   )
 }
