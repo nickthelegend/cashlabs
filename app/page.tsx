@@ -196,7 +196,7 @@ const Navigation = React.memo(() => {
       <nav className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <div className="text-xl font-semibold text-white flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity">
-            <Image src="/logo.png" alt="CashLabs Logo" width={32} height={32} />
+            <Image src="/logo.png" alt="CashLabs Logo" width={40} height={40} />
             CashLabs
           </div>
 
