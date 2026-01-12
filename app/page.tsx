@@ -221,14 +221,21 @@ const Navigation = React.memo(() => {
           </div>
 
           <div className="hidden md:flex items-center justify-center gap-8 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-            <a href="#how-it-works" className="text-sm text-white/60 hover:text-white transition-colors">
+            <a href="#products" className="text-sm text-white/60 hover:text-white transition-colors font-medium relative group">
+              Products
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#61e9ba] transition-all group-hover:w-full"></span>
+            </a>
+            <a href="#how-it-works" className="text-sm text-white/60 hover:text-white transition-colors font-medium relative group">
               How it Works
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#61e9ba] transition-all group-hover:w-full"></span>
             </a>
-            <a href="#features" className="text-sm text-white/60 hover:text-white transition-colors">
+            <a href="#features" className="text-sm text-white/60 hover:text-white transition-colors font-medium relative group">
               Features
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#61e9ba] transition-all group-hover:w-full"></span>
             </a>
-            <a href="#community" className="text-sm text-white/60 hover:text-white transition-colors">
+            <a href="#community" className="text-sm text-white/60 hover:text-white transition-colors font-medium relative group">
               Community
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#61e9ba] transition-all group-hover:w-full"></span>
             </a>
           </div>
 
@@ -236,9 +243,9 @@ const Navigation = React.memo(() => {
             <Button type="button" variant="ghost" size="sm">
               Docs
             </Button>
-            <Button 
-              type="button" 
-              variant="default" 
+            <Button
+              type="button"
+              variant="default"
               size="sm"
               onClick={() => window.open('https://play.cashlabs.dev', '_blank')}
             >
@@ -261,15 +268,22 @@ const Navigation = React.memo(() => {
         <div className="md:hidden bg-black/95 backdrop-blur-md border-t border-gray-800/50 animate-[slideDown_0.3s_ease-out]">
           <div className="px-6 py-4 flex flex-col gap-4">
             <a
+              href="#products"
+              className="text-sm text-white/60 hover:text-white transition-colors py-2 border-b border-gray-800/30"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Products
+            </a>
+            <a
               href="#how-it-works"
-              className="text-sm text-white/60 hover:text-white transition-colors py-2"
+              className="text-sm text-white/60 hover:text-white transition-colors py-2 border-b border-gray-800/30"
               onClick={() => setMobileMenuOpen(false)}
             >
               How it Works
             </a>
             <a
               href="#features"
-              className="text-sm text-white/60 hover:text-white transition-colors py-2"
+              className="text-sm text-white/60 hover:text-white transition-colors py-2 border-b border-gray-800/30"
               onClick={() => setMobileMenuOpen(false)}
             >
               Features
@@ -285,10 +299,10 @@ const Navigation = React.memo(() => {
               <Button type="button" variant="ghost" size="sm" className="w-full justify-start">
                 Docs
               </Button>
-              <Button 
-                type="button" 
-                variant="default" 
-                size="sm" 
+              <Button
+                type="button"
+                variant="default"
+                size="sm"
                 className="w-full justify-start"
                 onClick={() => window.open('https://play.cashlabs.dev', '_blank')}
               >
@@ -305,13 +319,13 @@ const Navigation = React.memo(() => {
 Navigation.displayName = "Navigation"
 
 // Image Preview Modal Component
-const ImagePreviewModal = React.memo(({ 
-  isOpen, 
-  onClose, 
-  imageSrc, 
-  imageAlt, 
-  title 
-}: { 
+const ImagePreviewModal = React.memo(({
+  isOpen,
+  onClose,
+  imageSrc,
+  imageAlt,
+  title
+}: {
   isOpen: boolean
   onClose: () => void
   imageSrc: string
@@ -339,14 +353,14 @@ const ImagePreviewModal = React.memo(({
   if (!isOpen) return null
 
   return (
-    <div 
+    <div
       className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm"
       onClick={onClose}
       style={{
         animation: "fadeIn 0.3s ease-out",
       }}
     >
-      <div 
+      <div
         className="relative max-w-7xl max-h-[90vh] w-full"
         onClick={(e) => e.stopPropagation()}
       >
@@ -358,14 +372,14 @@ const ImagePreviewModal = React.memo(({
         >
           <X size={32} />
         </button>
-        
+
         {/* Title */}
         <div className="absolute -top-12 left-0 z-10">
           <h3 className="text-white text-lg font-semibold">{title}</h3>
         </div>
 
         {/* Image Container */}
-        <div 
+        <div
           className="relative rounded-xl overflow-hidden border border-gray-700/50 shadow-2xl bg-gray-900"
           style={{
             animation: "slideUp 0.3s ease-out",
@@ -499,11 +513,11 @@ const Hero = React.memo(() => {
 
       {/* Hero Image - Big and Responsive */}
       <div className="w-full max-w-7xl mx-auto mb-20 px-4 sm:px-6">
-        <Image 
-          src="/images/hero.png" 
-          alt="CashLabs Play interface showing CashScript smart contract development environment with code editor, compiler output, and deployment tools" 
-          width={1200} 
-          height={600} 
+        <Image
+          src="/images/hero.png"
+          alt="CashLabs Play interface showing CashScript smart contract development environment with code editor, compiler output, and deployment tools"
+          width={1200}
+          height={600}
           className="w-full h-auto rounded-xl shadow-2xl border border-gray-700/50 hover:border-[#61e9ba]/30 transition-colors duration-300"
           priority
           loading="eager"
@@ -549,11 +563,11 @@ const Products = React.memo(() => {
 
   return (
     <>
-      <section className="py-20 px-6 max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Our Products</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
-            Powerful tools for Bitcoin Cash development and transactions
+      <section id="products" className="py-24 px-6 max-w-7xl mx-auto scroll-mt-20">
+        <div className="text-center mb-20">
+          <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 tracking-tight">Built for the Bitcoin Cash Ecosystem</h2>
+          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
+            A suite of powerful, modular tools designed to accelerate Bitcoin Cash development and enhance user experience.
           </p>
         </div>
 
@@ -565,7 +579,7 @@ const Products = React.memo(() => {
               "@context": "https://schema.org",
               "@type": "ItemList",
               "name": "CashLabs Products",
-              "description": "Bitcoin Cash development tools and platforms",
+              "description": "Bitcoin Cash development tools, AI agents, and MCP servers",
               "itemListElement": [
                 {
                   "@type": "SoftwareApplication",
@@ -575,147 +589,272 @@ const Products = React.memo(() => {
                   "url": "https://play.cashlabs.dev",
                   "applicationCategory": "DeveloperApplication",
                   "operatingSystem": "Web Browser",
-                  "offers": {
-                    "@type": "Offer",
-                    "price": "0",
-                    "priceCurrency": "USD"
-                  }
+                  "image": "https://cashlabs.dev/images/hero.png"
                 },
                 {
-                  "@type": "SoftwareApplication", 
+                  "@type": "SoftwareApplication",
                   "position": 2,
                   "name": "CashLabs Flow",
                   "description": "Node.js tools for Bitcoin Cash transaction processing and wallet integration",
                   "url": "https://flow.cashlabs.dev",
                   "applicationCategory": "DeveloperApplication",
                   "operatingSystem": "Node.js",
-                  "offers": {
-                    "@type": "Offer",
-                    "price": "0",
-                    "priceCurrency": "USD"
-                  }
+                  "image": "https://cashlabs.dev/images/flow.png"
+                },
+                {
+                  "@type": "SoftwareApplication",
+                  "position": 3,
+                  "name": "AI Chat",
+                  "description": "AI Agent powered by MCP server for Bitcoin Cash interactions",
+                  "url": "https://chat.cashlabs.dev",
+                  "applicationCategory": "Assistant",
+                  "operatingSystem": "Web Browser",
+                  "image": "https://cashlabs.dev/images/agent.png"
+                },
+                {
+                  "@type": "SoftwareApplication",
+                  "position": 4,
+                  "name": "MCP Server",
+                  "description": "Modular MCP server providing tools for Bitcoin Cash development",
+                  "url": "https://mcp.cashlabs.dev",
+                  "applicationCategory": "DeveloperApplication",
+                  "operatingSystem": "Node.js",
+                  "image": "https://cashlabs.dev/images/tools.png"
                 }
               ]
             })
           }}
         />
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* CashLabs Play */}
-          <div className="space-y-6">
-            <div className="bg-gradient-to-r from-gray-800/30 to-gray-900/30 border border-gray-700/50 rounded-xl p-8 hover:border-[#61e9ba]/30 transition-colors duration-300">
-              <div className="flex items-center gap-3 mb-4">
-                <Code size={28} className="text-[#61e9ba]" />
-                <h3 className="text-2xl font-bold text-white">CashLabs Play</h3>
+        <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8 mb-16">
+          {/* AI Chat - NEW */}
+          <div className="group relative bg-gradient-to-b from-gray-900/50 to-black border border-gray-800 hover:border-[#61e9ba]/50 rounded-2xl p-1 transition-all duration-500 overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#61e9ba]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="relative p-8 flex flex-col h-full">
+              <div className="flex items-center justify-between mb-8">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-[#61e9ba]/10 flex items-center justify-center border border-[#61e9ba]/20 group-hover:scale-110 transition-transform">
+                    <Send size={24} className="text-[#61e9ba]" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-white group-hover:text-[#61e9ba] transition-colors line-clamp-1">AI Chat</h3>
+                    <div className="flex items-center gap-2 mt-1">
+                      <span className="px-2 py-0.5 bg-[#61e9ba]/10 text-[#61e9ba] text-[10px] font-bold uppercase tracking-wider rounded border border-[#61e9ba]/20">
+                        NEW
+                      </span>
+                      <span className="text-gray-500 text-xs">chat.cashlabs.dev</span>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <p className="text-gray-300 mb-6 leading-relaxed">
-                Build, compile, and deploy Bitcoin Cash smart contracts directly in your browser. 
+
+              <p className="text-gray-400 mb-8 leading-relaxed">
+                Interact with the Bitcoin Cash network using natural language. Powered by our custom MCP server,
+                AI Chat can manage wallets, check balances, and execute transactions.
+              </p>
+
+              <div
+                className="relative aspect-video rounded-xl overflow-hidden border border-gray-800 mb-8 cursor-zoom-in group/img"
+                onClick={() => openPreview('/images/agent.png', 'AI Chat - Bitcoin Cash Assistant', 'AI Chat')}
+              >
+                <Image
+                  src="/images/agent.png"
+                  alt="AI Chat Assistant - Powered by MCP"
+                  width={600}
+                  height={337}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover/img:scale-110"
+                />
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center">
+                  <ZoomIn size={24} className="text-white transform scale-90 group-hover/img:scale-100 transition-transform" />
+                </div>
+              </div>
+
+              <div className="mt-auto grid grid-cols-2 gap-4">
+                <Button
+                  type="button"
+                  variant="default"
+                  size="lg"
+                  className="bg-[#61e9ba] text-black hover:bg-[#61e9ba]/90 font-bold"
+                  onClick={() => window.open('https://chat.cashlabs.dev', '_blank')}
+                >
+                  Launch Chat
+                </Button>
+                <div className="flex items-center gap-2 text-xs text-gray-500 px-2 uppercase tracking-widest font-semibold">
+                  <Zap size={14} className="text-[#61e9ba]" />
+                  MCP Powered
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* MCP Server - NEW */}
+          <div className="group relative bg-gradient-to-b from-gray-900/50 to-black border border-gray-800 hover:border-[#61e9ba]/50 rounded-2xl p-1 transition-all duration-500 overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#61e9ba]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="relative p-8 flex flex-col h-full">
+              <div className="flex items-center justify-between mb-8">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-[#61e9ba]/10 flex items-center justify-center border border-[#61e9ba]/20 group-hover:scale-110 transition-transform">
+                    <Terminal size={24} className="text-[#61e9ba]" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-white group-hover:text-[#61e9ba] transition-colors line-clamp-1">MCP Server</h3>
+                    <div className="flex items-center gap-2 mt-1">
+                      <span className="px-2 py-0.5 bg-blue-500/10 text-blue-400 text-[10px] font-bold uppercase tracking-wider rounded border border-blue-500/20">
+                        Protocol
+                      </span>
+                      <span className="text-gray-500 text-xs">mcp.cashlabs.dev</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <p className="text-gray-400 mb-8 leading-relaxed">
+                A standardized interface for Bitcoin Cash tools. Easily integrate BCH functionality
+                into any AI tool or application that supports the Model Context Protocol.
+              </p>
+
+              <div
+                className="relative aspect-video rounded-xl overflow-hidden border border-gray-800 mb-8 cursor-zoom-in group/img"
+                onClick={() => openPreview('/images/tools.png', 'MCP Server - Developer Tools', 'MCP Server')}
+              >
+                <Image
+                  src="/images/tools.png"
+                  alt="MCP Server Tools for Bitcoin Cash"
+                  width={600}
+                  height={337}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover/img:scale-110"
+                />
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center">
+                  <ZoomIn size={24} className="text-white transform scale-90 group-hover/img:scale-100 transition-transform" />
+                </div>
+              </div>
+
+              <div className="mt-auto grid grid-cols-2 gap-4">
+                <Button
+                  type="button"
+                  variant="secondary"
+                  size="lg"
+                  className="border-gray-700 text-white hover:bg-gray-800"
+                  onClick={() => window.open('https://mcp.cashlabs.dev', '_blank')}
+                >
+                  View Tools
+                </Button>
+                <div className="flex items-center gap-2 text-xs text-gray-500 px-2 uppercase tracking-widest font-semibold">
+                  <Github size={14} className="text-[#61e9ba]" />
+                  Open Source
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* CashLabs Play */}
+          <div className="group relative bg-gradient-to-b from-gray-900/50 to-black border border-gray-800 hover:border-[#61e9ba]/50 rounded-2xl p-1 transition-all duration-500 overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#61e9ba]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="relative p-8 flex flex-col h-full">
+              <div className="flex items-center justify-between mb-8">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-[#61e9ba]/10 flex items-center justify-center border border-[#61e9ba]/20 group-hover:scale-110 transition-transform">
+                    <Code size={24} className="text-[#61e9ba]" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-white group-hover:text-[#61e9ba] transition-colors line-clamp-1">CashLabs Play</h3>
+                    <div className="flex items-center gap-2 mt-1">
+                      <span className="px-2 py-0.5 bg-purple-500/10 text-purple-400 text-[10px] font-bold uppercase tracking-wider rounded border border-purple-500/20">
+                        IDE
+                      </span>
+                      <span className="text-gray-500 text-xs">play.cashlabs.dev</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <p className="text-gray-400 mb-8 leading-relaxed">
+                Build, compile, and deploy Bitcoin Cash smart contracts directly in your browser.
                 No setup required - just start coding with CashScript.
               </p>
-              <div className="flex flex-wrap gap-3 mb-6">
-                <span className="px-3 py-1 bg-[#61e9ba]/10 text-[#61e9ba] text-sm rounded-full border border-[#61e9ba]/20">
-                  Smart Contracts
-                </span>
-                <span className="px-3 py-1 bg-[#61e9ba]/10 text-[#61e9ba] text-sm rounded-full border border-[#61e9ba]/20">
-                  CashScript
-                </span>
-                <span className="px-3 py-1 bg-[#61e9ba]/10 text-[#61e9ba] text-sm rounded-full border border-[#61e9ba]/20">
-                  Browser IDE
-                </span>
-              </div>
-              <Button
-                type="button"
-                variant="default"
-                size="lg"
-                className="w-full sm:w-auto bg-[#61e9ba] text-black hover:bg-[#61e9ba]/90"
-                onClick={() => window.open('https://play.cashlabs.dev', '_blank')}
+
+              <div
+                className="relative aspect-video rounded-xl overflow-hidden border border-gray-800 mb-8 cursor-zoom-in group/img"
+                onClick={() => openPreview('/images/hero.png', 'CashLabs Play - Smart Contract IDE', 'CashLabs Play')}
               >
-                <Code size={20} />
-                Open Playground
-              </Button>
+                <Image
+                  src="/images/hero.png"
+                  alt="CashLabs Play - Smart Contract IDE"
+                  width={600}
+                  height={337}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover/img:scale-110"
+                />
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center">
+                  <ZoomIn size={24} className="text-white transform scale-90 group-hover/img:scale-100 transition-transform" />
+                </div>
+              </div>
+
+              <div className="mt-auto">
+                <Button
+                  type="button"
+                  variant="secondary"
+                  size="lg"
+                  className="w-full border-gray-700 text-white hover:bg-gray-800"
+                  onClick={() => window.open('https://play.cashlabs.dev', '_blank')}
+                >
+                  Open IDE
+                </Button>
+              </div>
             </div>
           </div>
 
           {/* CashLabs Flow */}
-          <div className="space-y-6">
-            <div className="bg-gradient-to-r from-gray-800/30 to-gray-900/30 border border-gray-700/50 rounded-xl p-8 hover:border-[#61e9ba]/30 transition-colors duration-300">
-              <div className="flex items-center gap-3 mb-4">
-                <Zap size={28} className="text-[#61e9ba]" />
-                <h3 className="text-2xl font-bold text-white">CashLabs Flow</h3>
+          <div className="group relative bg-gradient-to-b from-gray-900/50 to-black border border-gray-800 hover:border-[#61e9ba]/50 rounded-2xl p-1 transition-all duration-500 overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#61e9ba]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="relative p-8 flex flex-col h-full">
+              <div className="flex items-center justify-between mb-8">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-[#61e9ba]/10 flex items-center justify-center border border-[#61e9ba]/20 group-hover:scale-110 transition-transform">
+                    <Zap size={24} className="text-[#61e9ba]" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-white group-hover:text-[#61e9ba] transition-colors line-clamp-1">CashLabs Flow</h3>
+                    <div className="flex items-center gap-2 mt-1">
+                      <span className="px-2 py-0.5 bg-orange-500/10 text-orange-400 text-[10px] font-bold uppercase tracking-wider rounded border border-orange-500/20">
+                        Automation
+                      </span>
+                      <span className="text-gray-500 text-xs">flow.cashlabs.dev</span>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <p className="text-gray-300 mb-6 leading-relaxed">
-                Execute Bitcoin Cash transactions using Node.js. Streamlined transaction 
-                processing and wallet integration for developers.
+
+              <p className="text-gray-400 mb-8 leading-relaxed">
+                Execute Bitcoin Cash transactions and manage workflows with Node.js.
+                Powerful tools for real-time transaction processing.
               </p>
-              <div className="flex flex-wrap gap-3 mb-6">
-                <span className="px-3 py-1 bg-[#61e9ba]/10 text-[#61e9ba] text-sm rounded-full border border-[#61e9ba]/20">
-                  Node.js
-                </span>
-                <span className="px-3 py-1 bg-[#61e9ba]/10 text-[#61e9ba] text-sm rounded-full border border-[#61e9ba]/20">
-                  Transactions
-                </span>
-                <span className="px-3 py-1 bg-[#61e9ba]/10 text-[#61e9ba] text-sm rounded-full border border-[#61e9ba]/20">
-                  Bitcoin Cash
-                </span>
-              </div>
-              <Button
-                type="button"
-                variant="default"
-                size="lg"
-                className="w-full sm:w-auto bg-[#61e9ba] text-black hover:bg-[#61e9ba]/90"
-                onClick={() => window.open('https://flow.cashlabs.dev', '_blank')}
+
+              <div
+                className="relative aspect-video rounded-xl overflow-hidden border border-gray-800 mb-8 cursor-zoom-in group/img"
+                onClick={() => openPreview('/images/flow.png', 'CashLabs Flow - Transaction Processing', 'CashLabs Flow')}
               >
-                <Terminal size={20} />
-                Try Flow
-              </Button>
-            </div>
-          </div>
-        </div>
-
-        {/* Product Images */}
-        <div className="grid lg:grid-cols-2 gap-12 mt-12">
-          {/* Hero Image for Play */}
-          <div className="space-y-4">
-            <h4 className="text-lg font-semibold text-white text-center">CashLabs Play</h4>
-            <div 
-              className="relative rounded-xl overflow-hidden border border-gray-700/50 hover:border-[#61e9ba]/30 transition-all duration-300 cursor-pointer group"
-              onClick={() => openPreview('/images/hero.png', 'CashLabs Play - Smart Contract IDE', 'CashLabs Play')}
-            >
-              <Image 
-                src="/images/hero.png" 
-                alt="CashLabs Play - Smart Contract IDE" 
-                width={600} 
-                height={400} 
-                className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
-              />
-              {/* Hover Overlay */}
-              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                <div className="bg-white/20 backdrop-blur-sm rounded-full p-3">
-                  <ZoomIn size={24} className="text-white" />
+                <Image
+                  src="/images/flow.png"
+                  alt="CashLabs Flow - Transaction Processing"
+                  width={600}
+                  height={337}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover/img:scale-110"
+                />
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center">
+                  <ZoomIn size={24} className="text-white transform scale-90 group-hover/img:scale-100 transition-transform" />
                 </div>
               </div>
-            </div>
-          </div>
 
-          {/* Flow Image */}
-          <div className="space-y-4">
-            <h4 className="text-lg font-semibold text-white text-center">CashLabs Flow</h4>
-            <div 
-              className="relative rounded-xl overflow-hidden border border-gray-700/50 hover:border-[#61e9ba]/30 transition-all duration-300 cursor-pointer group"
-              onClick={() => openPreview('/images/flow.png', 'CashLabs Flow - Transaction Processing', 'CashLabs Flow')}
-            >
-              <Image 
-                src="/images/flow.png" 
-                alt="CashLabs Flow - Transaction Processing" 
-                width={600} 
-                height={400} 
-                className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
-              />
-              {/* Hover Overlay */}
-              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                <div className="bg-white/20 backdrop-blur-sm rounded-full p-3">
-                  <ZoomIn size={24} className="text-white" />
-                </div>
+              <div className="mt-auto">
+                <Button
+                  type="button"
+                  variant="secondary"
+                  size="lg"
+                  className="w-full border-gray-700 text-white hover:bg-gray-800"
+                  onClick={() => window.open('https://flow.cashlabs.dev', '_blank')}
+                >
+                  Explore Flow
+                </Button>
               </div>
             </div>
           </div>
@@ -915,7 +1054,21 @@ export default function Page() {
                 "@type": "Offer",
                 "price": "0",
                 "priceCurrency": "USD"
-              }
+              },
+              "hasPart": [
+                {
+                  "@type": "SoftwareApplication",
+                  "name": "AI Chat",
+                  "description": "Bitcoin Cash AI Assistant powered by MCP",
+                  "url": "https://chat.cashlabs.dev"
+                },
+                {
+                  "@type": "SoftwareApplication",
+                  "name": "MCP Server",
+                  "description": "Bitcoin Cash Model Context Protocol Server",
+                  "url": "https://mcp.cashlabs.dev"
+                }
+              ]
             },
             "breadcrumb": {
               "@type": "BreadcrumbList",
@@ -931,7 +1084,7 @@ export default function Page() {
           })
         }}
       />
-      
+
       <main className="min-h-screen bg-black text-white" role="main">
         <Navigation />
         <Hero />
@@ -940,7 +1093,7 @@ export default function Page() {
         <FeaturesGrid />
         <WhoIsThisFor />
         <Community />
-        
+
         {/* Footer with additional SEO content */}
         <footer className="bg-gray-900/50 border-t border-gray-800/50 py-12 px-6" role="contentinfo">
           <div className="max-w-7xl mx-auto">
@@ -955,11 +1108,21 @@ export default function Page() {
                   Build Bitcoin Cash smart contracts in your browser. Free tools for developers.
                 </p>
               </div>
-              
+
               {/* Products */}
               <div className="space-y-4">
                 <h3 className="text-white font-semibold">Products</h3>
                 <ul className="space-y-2 text-sm">
+                  <li>
+                    <a href="https://chat.cashlabs.dev" className="text-gray-400 hover:text-[#61e9ba] transition-colors" target="_blank" rel="noopener noreferrer">
+                      AI Chat
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://mcp.cashlabs.dev" className="text-gray-400 hover:text-[#61e9ba] transition-colors" target="_blank" rel="noopener noreferrer">
+                      MCP Server
+                    </a>
+                  </li>
                   <li>
                     <a href="https://play.cashlabs.dev" className="text-gray-400 hover:text-[#61e9ba] transition-colors" target="_blank" rel="noopener noreferrer">
                       CashLabs Play
@@ -972,7 +1135,7 @@ export default function Page() {
                   </li>
                 </ul>
               </div>
-              
+
               {/* Resources */}
               <div className="space-y-4">
                 <h3 className="text-white font-semibold">Resources</h3>
@@ -994,7 +1157,7 @@ export default function Page() {
                   </li>
                 </ul>
               </div>
-              
+
               {/* Technology */}
               <div className="space-y-4">
                 <h3 className="text-white font-semibold">Technology</h3>
@@ -1006,16 +1169,16 @@ export default function Page() {
                 </ul>
               </div>
             </div>
-            
+
             <div className="border-t border-gray-800/50 mt-8 pt-8 text-center space-y-2">
               <p className="text-gray-400 text-sm">
                 © 2024 CashLabs. Building the future of Bitcoin Cash development.
               </p>
               <p className="text-gray-500 text-xs">
                 Made by{' '}
-                <a 
-                  href="https://github.com/nickthelegend" 
-                  target="_blank" 
+                <a
+                  href="https://github.com/nickthelegend"
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="text-[#61e9ba] hover:text-[#61e9ba]/80 transition-colors underline"
                 >

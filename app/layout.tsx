@@ -32,6 +32,11 @@ export const metadata: Metadata = {
     'Blockchain Programming',
     'Bitcoin Cash Tools',
     'Smart Contract Deployment',
+    'AI Agent',
+    'AI Chat',
+    'Model Context Protocol',
+    'MCP Server',
+    'BCH AI',
     'CashScript Tutorial',
     'Bitcoin Cash Developer',
     'Blockchain Tools',
@@ -70,6 +75,18 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'CashLabs Flow - Bitcoin Cash Transaction Processing',
+      },
+      {
+        url: '/images/agent.png',
+        width: 1200,
+        height: 630,
+        alt: 'AI Chat - Bitcoin Cash AI Assistant',
+      },
+      {
+        url: '/images/tools.png',
+        width: 1200,
+        height: 630,
+        alt: 'MCP Server - Bitcoin Cash Developer Tools',
       },
     ],
     locale: 'en_US',
@@ -114,24 +131,6 @@ export const metadata: Metadata = {
   applicationName: 'CashLabs',
   referrer: 'origin-when-cross-origin',
   colorScheme: 'dark',
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#61e9ba' },
-    { media: '(prefers-color-scheme: dark)', color: '#000000' },
-  ],
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 5,
-  },
-  verification: {
-    google: 'your-google-verification-code',
-    yandex: 'your-yandex-verification-code',
-    yahoo: 'your-yahoo-verification-code',
-  },
-  other: {
-    'msapplication-TileColor': '#000000',
-    'msapplication-config': '/browserconfig.xml',
-  },
 }
 
 export default function RootLayout({
@@ -151,17 +150,19 @@ export default function RootLayout({
         <meta name="MobileOptimized" content="320" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        
+
         {/* Preconnect to external domains */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://play.cashlabs.dev" />
         <link rel="preconnect" href="https://flow.cashlabs.dev" />
-        
+        <link rel="preconnect" href="https://chat.cashlabs.dev" />
+        <link rel="preconnect" href="https://mcp.cashlabs.dev" />
+
         {/* DNS Prefetch */}
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
         <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
-        
+
         {/* Structured Data - Organization */}
         <script
           type="application/ld+json"
@@ -186,7 +187,7 @@ export default function RootLayout({
             })
           }}
         />
-        
+
         {/* Structured Data - WebSite */}
         <script
           type="application/ld+json"
@@ -205,29 +206,45 @@ export default function RootLayout({
             })
           }}
         />
-        
-        {/* Structured Data - SoftwareApplication */}
+
+        {/* Structured Data - SoftwareApplications */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "SoftwareApplication",
-              "name": "CashLabs Play",
-              "applicationCategory": "DeveloperApplication",
-              "operatingSystem": "Web Browser",
-              "url": "https://play.cashlabs.dev",
-              "description": "Browser-based IDE for building Bitcoin Cash smart contracts with CashScript",
-              "offers": {
-                "@type": "Offer",
-                "price": "0",
-                "priceCurrency": "USD"
+            __html: JSON.stringify([
+              {
+                "@context": "https://schema.org",
+                "@type": "SoftwareApplication",
+                "name": "CashLabs Play",
+                "applicationCategory": "DeveloperApplication",
+                "operatingSystem": "Web Browser",
+                "url": "https://play.cashlabs.dev",
+                "description": "Browser-based IDE for building Bitcoin Cash smart contracts with CashScript",
+                "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
               },
-              "creator": {
-                "@type": "Organization",
-                "name": "CashLabs"
+              {
+                "@context": "https://schema.org",
+                "@type": "SoftwareApplication",
+                "name": "AI Chat",
+                "applicationCategory": "Assistant",
+                "operatingSystem": "Web Browser",
+                "url": "https://chat.cashlabs.dev",
+                "description": "AI Agent powered by MCP for Bitcoin Cash interactions",
+                "image": "https://cashlabs.dev/images/agent.png",
+                "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "SoftwareApplication",
+                "name": "MCP Server",
+                "applicationCategory": "DeveloperApplication",
+                "operatingSystem": "Node.js",
+                "url": "https://mcp.cashlabs.dev",
+                "description": "Modular MCP server providing tools for Bitcoin Cash development",
+                "image": "https://cashlabs.dev/images/tools.png",
+                "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
               }
-            })
+            ])
           }}
         />
       </head>
