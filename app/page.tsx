@@ -240,7 +240,12 @@ const Navigation = React.memo(() => {
           </div>
 
           <div className="hidden md:flex items-center gap-4">
-            <Button type="button" variant="ghost" size="sm">
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={() => window.open('https://docs.cashlabs.dev', '_blank')}
+            >
               Docs
             </Button>
             <Button
@@ -296,7 +301,13 @@ const Navigation = React.memo(() => {
               Community
             </a>
             <div className="flex flex-col gap-2 pt-4 border-t border-gray-800/50">
-              <Button type="button" variant="ghost" size="sm" className="w-full justify-start">
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                className="w-full justify-start"
+                onClick={() => window.open('https://docs.cashlabs.dev', '_blank')}
+              >
                 Docs
               </Button>
               <Button
@@ -505,6 +516,7 @@ const Hero = React.memo(() => {
           size="lg"
           className="rounded-lg flex items-center justify-center gap-2"
           aria-label="View CashLabs documentation and guides"
+          onClick={() => window.open('https://docs.cashlabs.dev', '_blank')}
         >
           View Docs
           <ArrowRight size={20} aria-hidden="true" />
